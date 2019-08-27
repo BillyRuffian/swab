@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'csv'
+require 'tty-spinner'
 require 'slop'
 require 'swab'
 
@@ -24,8 +25,12 @@ opts = Slop.parse do |o|
   end
 end
 
+spinner = TTY::Spinner.new('[:spinner] Fetching ... ', format: :classic)
+spinner.auto_spin
 
 data = Swab.swab(opts[:url], opts[:user], opts[:pass])
 CSV.open( opts[:out], 'wb' ) do |csv|
   data.each { |row| csv << row }
 end
+
+spinner.stop('Done')

@@ -15,7 +15,6 @@ module Swab
     end
     
     def parse(data = [], count = 0)
-      puts "iteration #{count}"
       table = @page.search('table#ctl00_content_BookingStatus1_dynamicTable')
       new_data = table.search('tr')[1..-1].map do |tr|
         tr.search('td')[1..-1].map(&:text).map{ |s| s.gsub( "\u00A0", "" ) }

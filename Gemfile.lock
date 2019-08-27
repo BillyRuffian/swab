@@ -4,6 +4,7 @@ PATH
     swab (0.1.0)
       mechanize (~> 2.7)
       slop (~> 4.0)
+      tty-spinner (~> 0.9)
 
 GEM
   remote: https://rubygems.org/
@@ -53,6 +54,9 @@ GEM
       rspec-support (~> 3.8.0)
     rspec-support (3.8.2)
     slop (4.7.0)
+    tty-cursor (0.7.0)
+    tty-spinner (0.9.1)
+      tty-cursor (~> 0.7)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.6)
