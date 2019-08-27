@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require 'csv'
+require 'slop'
+require 'swab'
+
+ARGV << '-h' if ARGV.empty?
+opts = nil
+
+opts = Slop.parse do |o|  
+  o.string '-l', '--url', 'URL', required: true
+  o.string '-u', '--user', 'username', required: true
+  o.string '-p', '--pass', 'password', required: true
+  o.string '-o', '--out', 'destination', default: 'out.csv'
+  o.separator ''
+  o.separator 'Other options'
+  o.on '-v', 'version' do
+    puts "Swab #{Swab::VERSION}"
+    exit
+  end
+  o.on '-h', 'help' do
+    puts o
+    exit
+  end
+end
+
+
+data = Swab.swab(opts[:url], opts[:user], opts[:pass])
+CSV.open( opts[:out], 'wb' ) do |csv|
+  data.each { |row| csv << row }
+end
