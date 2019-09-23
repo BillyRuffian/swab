@@ -21,9 +21,9 @@ module Swab
       end.click_button
     end
     
-    def set_date_range(days)
+    def set_date_range(months)
       start_date = Date.today
-      end_date = start_date + days - 1
+      end_date = start_date >> months
       
       form = @page.form_with(name: 'aspnetForm')
       form.add_field!('ctl00$ToolkitScriptManager1', 'ctl00$content$BookingStatusUpdatePanel|ctl00$content$BookingStatus1$cmdSubmitPrint')
