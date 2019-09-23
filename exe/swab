@@ -13,6 +13,7 @@ opts = Slop.parse do |o|
   o.string '-u', '--user', 'username', required: true
   o.string '-p', '--pass', 'password', required: true
   o.string '-o', '--out', 'destination', default: 'out.csv'
+  o.integer '-m', '--months', 'Number of months', default: 3
   o.separator ''
   o.separator 'Other options'
   o.on '-v', 'version' do
@@ -25,12 +26,14 @@ opts = Slop.parse do |o|
   end
 end
 
-spinner = TTY::Spinner.new('[:spinner] Fetching ... ', format: :classic)
+spinner = TTY::Spinner.new('[:spinner] :title ... ', format: :classic)
+spinner.update(title: 'Starting up')
 spinner.auto_spin
 
-data = Swab.swab(opts[:url], opts[:user], opts[:pass])
+data = Swab.swab(opts[:url], opts[:user], opts[:pass], opts[:months], spinner)
 CSV.open( opts[:out], 'wb' ) do |csv|
   data.each { |row| csv << row }
 end
 
+spinner.update(title: 'Finishing')
 spinner.stop('Done')
