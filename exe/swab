@@ -13,7 +13,7 @@ opts = Slop.parse do |o|
   o.string '-u', '--user', 'username', required: true
   o.string '-p', '--pass', 'password', required: true
   o.string '-o', '--out', 'destination', default: 'out.csv'
-  o.integer '-m', '--months', 'Number of months', default: 3
+  o.integer '-m', '--months', 'Number of months', default: 1
   o.bool '-r', '--recent', 'Most Recently updated shifts', default: false
   o.separator ''
   o.separator 'Other options'
