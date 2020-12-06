@@ -22,7 +22,7 @@ module Swab
     end
     
     def set_date_range(months)
-      start_date = months == 1 ? Date.today : Date.today >> months
+      start_date = months == 1 ? Date.today : Date.today >> (months - 1)
       end_date = start_date >> 1
       
       form = @page.form_with(name: 'aspnetForm')
