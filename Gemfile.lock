@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    swab (2.1.0)
+    swab (2.1.1)
       mechanize (~> 2.7)
       slop (~> 4.0)
       tty-spinner (~> 0.9)
