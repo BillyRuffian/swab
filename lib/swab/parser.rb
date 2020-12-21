@@ -41,7 +41,6 @@ module Swab
       form.add_field!('ctl00$ToolkitScriptManager1', 'ctl00$content$BookingStatusUpdatePanel|ctl00$content$BookingStatus1$cmdSubmitPrint')
       form.add_field!('ctl00$content$BookingStatus1$cmdSubmitPrint', 'Filter')
       form.checkbox_with(id: 'ctl00_content_BookingStatus1_chkIsRecentlyAdded').check
-      @page = form.submit
     end
     
     def parse(data = [], count = 0)
