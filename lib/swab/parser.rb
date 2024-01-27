@@ -22,8 +22,8 @@ module Swab
     end
     
     def set_date_range(months)
-      start_date = Date.today
-      end_date = start_date >> months
+      start_date = months == 1 ? Date.today : Date.today >> (months - 1)
+      end_date = start_date >> 1
       
       form = @page.form_with(name: 'aspnetForm')
       form.add_field!('ctl00$ToolkitScriptManager1', 'ctl00$content$BookingStatusUpdatePanel|ctl00$content$BookingStatus1$cmdSubmitPrint')
@@ -34,6 +34,13 @@ module Swab
       form['ctl00$content$BookingStatus1$StartDate'] = start_date.strftime '%d-%b-%y'
       form['ctl00$content$BookingStatus1$EndDate'] = end_date.strftime '%d-%b-%y'
       @page = form.submit
+    end
+
+    def set_most_recent
+      form = @page.form_with(name: 'aspnetForm')
+      form.add_field!('ctl00$ToolkitScriptManager1', 'ctl00$content$BookingStatusUpdatePanel|ctl00$content$BookingStatus1$cmdSubmitPrint')
+      form.add_field!('ctl00$content$BookingStatus1$cmdSubmitPrint', 'Filter')
+      form.checkbox_with(id: 'ctl00_content_BookingStatus1_chkIsRecentlyAdded').check
     end
     
     def parse(data = [], count = 0)

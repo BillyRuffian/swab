@@ -8,12 +8,13 @@ require 'swab'
 ARGV << '-h' if ARGV.empty?
 opts = nil
 
-opts = Slop.parse do |o|  
+opts = Slop.parse do |o|
   o.string '-l', '--url', 'URL', required: true
   o.string '-u', '--user', 'username', required: true
   o.string '-p', '--pass', 'password', required: true
   o.string '-o', '--out', 'destination', default: 'out.csv'
-  o.integer '-m', '--months', 'Number of months', default: 3
+  o.integer '-m', '--months', 'Number of months', default: 1
+  o.bool '-r', '--recent', 'Most Recently updated shifts', default: false
   o.separator ''
   o.separator 'Other options'
   o.on '-v', 'version' do
@@ -30,8 +31,8 @@ spinner = TTY::Spinner.new('[:spinner] :title ... ', format: :classic)
 spinner.update(title: 'Starting up')
 spinner.auto_spin
 
-data = Swab.swab(opts[:url], opts[:user], opts[:pass], opts[:months], spinner)
-CSV.open( opts[:out], 'wb' ) do |csv|
+data = Swab.swab(opts[:url], opts[:user], opts[:pass], opts[:months], opts[:recent], spinner)
+CSV.open( opts[:out], 'wb') do |csv|
   data.each { |row| csv << row }
 end
 
